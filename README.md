@@ -5,12 +5,12 @@ A modern, interactive Streamlit application for comprehensive forest management 
 ## 🚀 First-Time Setup
 
 ### Prerequisites
-- Python 3.12 or higher
+- Python 3.11 or higher
 - pip package manager
 
 ### Step 1: Create Virtual Environment
 ```bash
-py -3.12 -m venv venv
+py -3.11 -m venv venv
 ```
 
 ### Step 2: Activate Virtual Environment
