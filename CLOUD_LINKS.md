@@ -12,7 +12,9 @@ This document maintains persistent cloud links for model training checkpoints, d
 
 * **Google Drive Training Checkpoints & Datasets**:  
   [https://drive.google.com/drive/folders/18zFuIxy7JahatiXlH9362mo2ZDZKvKFZ?usp=sharing](https://drive.google.com/drive/folders/18zFuIxy7JahatiXlH9362mo2ZDZKvKFZ?usp=sharing)
-  * *Purpose*: Stores persistent epoch checkpoints (`epoch0.pt` through `epoch50.pt`), `best.pt`, `best.onnx`, and training curves (`results.png`, `confusion_matrix.png`).
+  * *Direct Checkpoints Run Folder (`yolo11_treesense_v6`)*: [https://drive.google.com/drive/folders/1wc8SxmVeggDmrtjxjCQXPVdZ3XtAk9r](https://drive.google.com/drive/folders/1wc8SxmVeggDmrtjxjCQXPVdZ3XtAk9r)
+  * *Direct Weights Folder (`best.pt`, `epoch0-40.pt`, `last.pt`)*: [https://drive.google.com/drive/folders/12J6uThbjw9ZQH1A_XoHfE5B4AFbhfVFo](https://drive.google.com/drive/folders/12J6uThbjw9ZQH1A_XoHfE5B4AFbhfVFo)
+  * *Purpose*: Stores persistent epoch checkpoints (`epoch0.pt` through `epoch40.pt`, `last.pt`), `best.pt`, `best.onnx`, and training curves (`results.png`, `confusion_matrix.png`, `BoxPR_curve.png`).
 
 ---
 

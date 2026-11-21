@@ -1,6 +1,5 @@
 /**
- * TreeSense Imaging - API Client
- * Connects frontend to FastAPI backend service.
+ * Typed API Client for TreeSense AI Backend Microservice
  */
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000/api/v1";
@@ -32,24 +31,21 @@ export interface DetectionResult {
 
 export interface CanopyResult {
   success: boolean;
-  index_method: string;
+  method: string;
   canopy_percentage: number;
   barren_percentage: number;
   ecological_classification: string;
-  total_pixels: number;
-  vegetation_pixels: number;
   overlay_image: string;
   heatmap_image: string;
-  telemetry: Record<string, any>;
 }
 
 export interface ChangeResult {
   success: boolean;
   count_baseline: number;
   count_monitoring: number;
-  tree_delta: number;
+  net_delta: number;
   percent_delta: number;
-  alert_level: string;
+  alert_level: "STABLE" | "WARNING" | "CRITICAL_ALERT";
   alert_message: string;
   baseline_annotated: string;
   monitoring_annotated: string;
@@ -69,19 +65,43 @@ export interface PathResult {
 
 export interface TelemetryResult {
   success: boolean;
-  city: string;
+  location_name: string;
+  country: string;
   latitude: number;
   longitude: number;
-  weather?: {
+  weather: {
     temperature_c: number;
+    apparent_temp_c: number;
     humidity_pct: number;
     wind_speed_kmh: number;
+    wind_gusts_kmh: number;
+    cloud_cover_pct: number;
+    direct_solar_irradiance: number;
     weather_condition: string;
+    weather_code: number;
   };
-  air_quality?: {
-    aqi_index: number;
+  air_quality: {
+    us_aqi: number;
+    european_aqi: number;
     aqi_category: string;
-    pollutants: Record<string, number>;
+    pm2_5: number;
+    pm10: number;
+    co: number;
+    no2: number;
+    so2: number;
+    ozone: number;
+    aerosol_optical_depth: number;
+  };
+  flight_status: {
+    status: "OPTIMAL_CLEARANCE" | "CAUTION_ADVISORY" | "GROUNDED";
+    wind_clearance: string;
+    visibility_clearance: string;
+    solar_imaging_viability: string;
+  };
+  forest_risk: {
+    wildfire_risk_level: "LOW" | "MODERATE" | "ELEVATED" | "EXTREME";
+    canopy_heat_stress: string;
+    recommended_irrigation: string;
   };
   recommendations: string[];
 }
@@ -110,8 +130,8 @@ export async function detectTrees(
   });
 
   if (!res.ok) {
-    const err = await res.json().catch(() => ({ detail: "Inference failed" }));
-    throw new Error(err.detail || "Tree detection failed");
+    const err = await res.json().catch(() => ({ detail: "Detection failed" }));
+    throw new Error(err.detail || "Detection failed");
   }
 
   return res.json();
@@ -141,16 +161,12 @@ export async function analyzeCanopy(
 }
 
 export async function compareTemporal(
-  baselineFile: File,
-  monitoringFile: File,
-  confidence: number = 0.25,
-  iou: number = 0.45
+  baseFile: File,
+  monFile: File
 ): Promise<ChangeResult> {
   const formData = new FormData();
-  formData.append("baseline_file", baselineFile);
-  formData.append("monitoring_file", monitoringFile);
-  formData.append("confidence", confidence.toString());
-  formData.append("iou", iou.toString());
+  formData.append("base_file", baseFile);
+  formData.append("mon_file", monFile);
 
   const res = await fetch(`${API_BASE_URL}/change/change`, {
     method: "POST",
@@ -192,8 +208,17 @@ export async function computeTerrainPath(
   return res.json();
 }
 
-export async function fetchClimateTelemetry(city: string = "Bhopal"): Promise<TelemetryResult> {
-  const res = await fetch(`${API_BASE_URL}/telemetry/telemetry?city=${encodeURIComponent(city)}`);
+export async function fetchClimateTelemetry(
+  city?: string,
+  latitude?: number,
+  longitude?: number
+): Promise<TelemetryResult> {
+  const params = new URLSearchParams();
+  if (city) params.append("city", city);
+  if (latitude !== undefined && latitude !== null) params.append("latitude", latitude.toString());
+  if (longitude !== undefined && longitude !== null) params.append("longitude", longitude.toString());
+
+  const res = await fetch(`${API_BASE_URL}/telemetry/telemetry?${params.toString()}`);
   if (!res.ok) {
     throw new Error("Failed to fetch climate telemetry");
   }

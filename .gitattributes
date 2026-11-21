@@ -1,0 +1,4 @@
+# GitHub Linguist language overrides
+# Prevents bloated .ipynb cell output JSON from skewing repository language to "Jupyter Notebook"
+*.ipynb linguist-documentation=true
+*.ipynb linguist-detectable=false
