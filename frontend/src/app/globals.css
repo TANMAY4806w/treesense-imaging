@@ -1,27 +1,99 @@
 @import "tailwindcss";
 
 :root {
-  --background: #020617;
-  --foreground: #f8fafc;
+  --background: #090b10;
+  --surface-1: #0f131a;
+  --surface-2: #161b26;
+  --surface-border: rgba(255, 255, 255, 0.08);
+  --foreground: #f1f5f9;
+  --accent-emerald: #10b981;
+  --accent-teal: #06b6d4;
+  --accent-amber: #f59e0b;
 }
 
 body {
   background-color: var(--background);
   color: var(--foreground);
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  -webkit-font-smoothing: antialiased;
 }
 
-/* Custom sleek scrollbar */
+/* Custom sleek scrollbars */
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 5px;
+  height: 5px;
 }
 ::-webkit-scrollbar-track {
-  background: #090d16;
+  background: #090b10;
 }
 ::-webkit-scrollbar-thumb {
   background: #1e293b;
-  border-radius: 4px;
+  border-radius: 9999px;
 }
 ::-webkit-scrollbar-thumb:hover {
   background: #10b981;
+}
+
+/* Tactical Scanning Radar Animation */
+@keyframes radarSweep {
+  0% {
+    top: 0%;
+    opacity: 0.8;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    top: 100%;
+    opacity: 0.2;
+  }
+}
+
+.animate-radar-sweep {
+  animation: radarSweep 2.2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+/* Subtle fade and slide in */
+@keyframes fadeInSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-tab-content {
+  animation: fadeInSlideUp 0.28s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Ambient Pulse for Status Indicators */
+@keyframes softPulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.6;
+    transform: scale(1.15);
+  }
+}
+
+.animate-soft-pulse {
+  animation: softPulse 2.5s ease-in-out infinite;
+}
+
+/* Tactical Grid Background */
+.bg-grid-pattern {
+  background-size: 32px 32px;
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+}
+
+/* Range input styling */
+input[type="range"] {
+  accent-color: #10b981;
 }

@@ -51,3 +51,5 @@ desktop.ini
 
 # Heavy temporary evaluation files (optional)
 # evaluation/output/sahi_tree1.jpg
+
+*.sqlite
