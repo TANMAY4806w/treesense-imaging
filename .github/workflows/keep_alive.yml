@@ -1,0 +1,28 @@
+name: Keep-Alive Ping Service
+
+on:
+  schedule:
+    # Run every 14 minutes to prevent free tier instances from sleeping
+    - cron: '*/14 * * * *'
+  workflow_dispatch:
+
+jobs:
+  ping:
+    name: Ping Cloud Backend Health Endpoint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping Backend
+        run: |
+          BACKEND="${{ secrets.BACKEND_URL }}"
+          if [ -z "$BACKEND" ]; then
+            echo "BACKEND_URL secret is not configured yet. Skipping ping."
+            exit 0
+          fi
+          echo "Pinging backend at $BACKEND/health..."
+          STATUS=$(curl -s -o /dev/null -w "%{http_code}" "$BACKEND/health" || echo "failed")
+          echo "Response code: $STATUS"
+          if [ "$STATUS" == "200" ]; then
+            echo "✅ Backend is active and healthy!"
+          else
+            echo "⚠️ Non-200 response or warm-up in progress: $STATUS"
+          fi
