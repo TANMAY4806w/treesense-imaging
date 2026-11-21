@@ -1,0 +1,65 @@
+{
+  "model_info": {
+    "architecture": "YOLOv11m",
+    "task": "detect",
+    "classes": {
+      "0": "tree-top"
+    },
+    "total_parameters": 20053779,
+    "trained_epochs": 50,
+    "dataset_images": 1384
+  },
+  "benchmark_results": [
+    {
+      "image": "tree1.jpg",
+      "resolution": "5760x3840",
+      "file_size_kb": 5792.8,
+      "standard_yolo11": {
+        "detections": 2,
+        "mean_confidence": 0.4107,
+        "latency_ms": 1924.9,
+        "fps": 0.5
+      },
+      "sahi_inference": {
+        "sahi_detections": 158,
+        "sahi_mean_conf": 0.3415,
+        "sahi_latency_ms": 10285.7,
+        "small_crown_gain": 156
+      }
+    },
+    {
+      "image": "drone_mixed_canopy.jpg",
+      "resolution": "1280x883",
+      "file_size_kb": 339.0,
+      "standard_yolo11": {
+        "detections": 11,
+        "mean_confidence": 0.4119,
+        "latency_ms": 275.4,
+        "fps": 3.6
+      },
+      "sahi_inference": {
+        "sahi_detections": 41,
+        "sahi_mean_conf": 0.3697,
+        "sahi_latency_ms": 413.2,
+        "small_crown_gain": 30
+      }
+    },
+    {
+      "image": "aerial_drone_forest_2.jpg",
+      "resolution": "1280x853",
+      "file_size_kb": 230.1,
+      "standard_yolo11": {
+        "detections": 6,
+        "mean_confidence": 0.3271,
+        "latency_ms": 45.8,
+        "fps": 21.8
+      },
+      "sahi_inference": {
+        "sahi_detections": 19,
+        "sahi_mean_conf": 0.3622,
+        "sahi_latency_ms": 314.2,
+        "small_crown_gain": 13
+      }
+    }
+  ]
+}

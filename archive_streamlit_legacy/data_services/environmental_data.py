@@ -67,8 +67,16 @@ def fetch_weather(city_name):
 # AIR QUALITY DATA FUNCTIONS
 # ==============================
 
-# OpenWeather API key
-API_KEY = "938c0134212aebf7ef23844e386dc26d"
+import os
+from pathlib import Path
+from dotenv import load_dotenv
+
+# Load environment variables
+env_path = Path(__file__).resolve().parent.parent / ".env"
+load_dotenv(dotenv_path=env_path)
+
+# OpenWeather API key from environment
+API_KEY = os.getenv("OPENWEATHER_API_KEY", "")
 
 # Friendly labels for pollutants
 pollutant_labels = {
