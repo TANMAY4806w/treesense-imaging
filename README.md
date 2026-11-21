@@ -1,15 +1,24 @@
 # 🌲 TreeSense AI — Flagship Aerial Forestry Intelligence Platform
 
+[![Live Web Console](https://img.shields.io/badge/Live%20Console-treesense--imaging--neon.vercel.app-00E676?style=for-the-badge&logo=vercel&logoColor=white)](https://treesense-imaging-neon.vercel.app/)
+[![Cloud API Docs](https://img.shields.io/badge/Swagger%20API-treesense--imaging.onrender.com-blue?style=for-the-badge&logo=fastapi&logoColor=white)](https://treesense-imaging.onrender.com/docs)
+[![Backend Status](https://img.shields.io/badge/Health%20Ping-200%20OK-brightgreen?style=for-the-badge)](https://treesense-imaging.onrender.com/health)
+
 [![Python](https://img.shields.io/badge/Python-3.11%20%7C%203.13-3776AB?logo=python&logoColor=white)](https://python.org)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.115-009688?logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com)
 [![Next.js](https://img.shields.io/badge/Next.js-16%20App%20Router-black?logo=nextdotjs&logoColor=white)](https://nextjs.org)
 [![React](https://img.shields.io/badge/React-19-61DAFB?logo=react&logoColor=black)](https://react.dev)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind-v4-38B2AC?logo=tailwindcss&logoColor=white)](https://tailwindcss.com)
 [![YOLOv11](https://img.shields.io/badge/YOLOv11m-Ultralytics-00FFFF)](https://ultralytics.com)
-[![SAHI](https://img.shields.io/badge/SAHI-Sliced%20Inference-FF6F00)](https://github.com/obss/sahi)
-[![PyTorch](https://img.shields.io/badge/PyTorch-2.x%20CUDA-EE4C2C?logo=pytorch&logoColor=white)](https://pytorch.org)
+[![ONNX Runtime](https://img.shields.io/badge/ONNX%20Runtime-Edge%20Optimized-005CED?logo=onnx&logoColor=white)](https://onnxruntime.ai)
+[![Keep-Alive Ping](https://img.shields.io/badge/GitHub%20Actions-24%2F7%20Warm-2088FF?logo=github-actions&logoColor=white)](https://github.com/TANMAY4806w/treesense-imaging/actions)
 
-**TreeSense AI** is a production-grade, decoupled microservice platform engineered for high-resolution aerial drone and satellite forestry intelligence. It solves small-object canopy degradation in 4K/5K drone orthomosaics through fine-tuned **YOLOv11m** combined with **SAHI (Slicing Aided Hyper Inference)**, real-time remote sensing spectral vegetation indices (VARI, GLI, ExG), bi-temporal deforestation delta alerts, and obstacle-aware 8-directional **A\*** terrain traversal routing.
+> 🚀 **Live Production Deployment**:
+> * **Interactive Web Application**: [https://treesense-imaging-neon.vercel.app/](https://treesense-imaging-neon.vercel.app/)
+> * **Interactive API Documentation (Swagger)**: [https://treesense-imaging.onrender.com/docs](https://treesense-imaging.onrender.com/docs)
+> * **Microservice Health Check**: [https://treesense-imaging.onrender.com/health](https://treesense-imaging.onrender.com/health)
+
+**TreeSense AI** is a production-grade, decoupled microservice platform engineered for high-resolution aerial drone and satellite forestry intelligence. It solves small-object canopy degradation in 4K/5K drone orthomosaics through fine-tuned **YOLOv11m** combined with **SAHI-style Sliced Tiling**, real-time remote sensing spectral vegetation indices (VARI, GLI, ExG), bi-temporal deforestation delta alerts, and obstacle-aware 8-directional **A\*** terrain traversal routing.
 
 ---
 
@@ -55,7 +64,35 @@ flowchart LR
 
 ---
 
-## 📊 Model Training, Dataset & Performance Metrics
+## 🌐 Live Cloud Architecture & Zero-Cost Deployment
+
+TreeSense AI runs on a resilient, high-speed multi-cloud topology designed for $0/month production hosting:
+
+```mermaid
+flowchart TD
+    User["Drone Pilot / Forestry Specialist"] -->|HTTPS| Vercel["Vercel Edge Network (Next.js 16 + React 19)"]
+    Vercel -->|REST API Client| Render["Render Cloud Microservice (FastAPI + ONNX Runtime)"]
+    
+    subgraph EdgeInference ["Lightweight AI Engine (<150MB RAM)"]
+        Render --> ONNX["YOLOv11m ONNX Engine (models/best.onnx)"]
+        Render --> Tile["Native Sliced Tiling (512x512 Windowing)"]
+        Render --> SpecIdx["Spectral Engine (VARI / GLI / ExG)"]
+        Render --> Meteo["Open-Meteo Atmospheric Chemistry API"]
+    end
+
+    subgraph KeepAlive ["24/7 Zero-Downtime Daemon"]
+        GHA["GitHub Actions (keep_alive.yml)"] -->|Every 14 Mins Ping /health| Render
+    end
+```
+
+| Component | Production Host | Live URL | Specifications |
+| :--- | :--- | :--- | :--- |
+| **Frontend Dashboard** | **Vercel** | [treesense-imaging-neon.vercel.app](https://treesense-imaging-neon.vercel.app/) | Next.js 16 (App Router), Tailwind v4, Global Edge CDN |
+| **Inference Backend** | **Render** | [treesense-imaging.onrender.com](https://treesense-imaging.onrender.com/) | FastAPI, ONNX Runtime CPU, Dynamic Slicing, CORS configured |
+| **Interactive Docs** | **Render Swagger** | [treesense-imaging.onrender.com/docs](https://treesense-imaging.onrender.com/docs) | OpenAPI 3.1 Interactive Documentation |
+| **Keep-Alive Daemon** | **GitHub Actions** | [Workflow Runs](https://github.com/TANMAY4806w/treesense-imaging/actions) | 14-min cron healthcheck preventing instance spin-down |
+
+---
 
 ### 1. Training Setup & Dataset Source
 The model was fine-tuned using transfer learning from `yolo11m.pt` (20.05M parameters) on Google Colab hardware with a dedicated 16GB Tesla T4 GPU.

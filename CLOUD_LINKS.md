@@ -1,6 +1,24 @@
 # 🔗 TreeSense AI — Cloud & Model Resources
 
-This document maintains persistent cloud links for model training checkpoints, datasets, and Google Colab development environments.
+This document maintains persistent cloud links for live production deployments, model training checkpoints, datasets, and development environments.
+
+---
+
+## 🚀 Live Production Deployments
+
+* **Production Web Console (Vercel)**:  
+  [https://treesense-imaging-neon.vercel.app/](https://treesense-imaging-neon.vercel.app/)  
+  * *Purpose*: Real-time web application dashboard with 1-click sample orthomosaics, atmospheric radar, and spectral canvas.
+
+* **Production AI Microservice (Render)**:  
+  [https://treesense-imaging.onrender.com/](https://treesense-imaging.onrender.com/)  
+  * *API Health Endpoint*: [https://treesense-imaging.onrender.com/health](https://treesense-imaging.onrender.com/health)  
+  * *Interactive Swagger Docs*: [https://treesense-imaging.onrender.com/docs](https://treesense-imaging.onrender.com/docs)  
+  * *Purpose*: Containerized FastAPI ASGI server running lightweight ONNX Runtime inference (<150MB RAM).
+
+* **24/7 Keep-Alive Automation (GitHub Actions)**:  
+  [https://github.com/TANMAY4806w/treesense-imaging/actions](https://github.com/TANMAY4806w/treesense-imaging/actions)  
+  * *Purpose*: Runs every 14 minutes to ping `/health`, preventing free-tier instance idle spin-downs.
 
 ---
 
